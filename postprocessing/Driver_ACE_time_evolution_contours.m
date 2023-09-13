@@ -51,11 +51,9 @@ Lx = 2*pi;
 Ly = 2*pi;
 hx = Lx/Nx;
 hy = Ly/Ny;
-x = linspace(-0.5*Lx+hx, 0.5*Lx, Nx+1); % !!!!!!!! Grazie JH !!!!!!!!
+x = linspace(-0.5*Lx+hx, 0.5*Lx, Nx+1);
 y = linspace(-0.5*Ly+hy, 0.5*Ly, Ny+1);
-% x = linspace( 0, Lx, Nx);
-% y = linspace( 0, Ly, Ny);
-x = x(1:end-1); % !!!!!!!! Grazie JH !!!!!!!!
+x = x(1:end-1);
 y = y(1:end-1);
 [ xx , yy ] = ndgrid(x,y);
 
