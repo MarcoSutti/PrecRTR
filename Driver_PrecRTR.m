@@ -1,9 +1,13 @@
 %==========================================================================
 % Driver for using Preconditioned Riemannian Trust Region on the manifold
 % of fixed-rank matrices.
+% Script for the 'LYAP' and the 'NPDE' problems.
 % Created:     2020.03.02
-% Last change: 2023.02.20
+% Last change: 2023.09.13
 
+%   Sep 13, 2023:
+%       Added option to switch on/off the checks on consistency of the
+%       gradient and the Hessian.
 %   Feb 20, 2023:
 %       Added options_tr.maxinner for the inner tCG solver.
 %   Sep 4, 2022:
@@ -42,6 +46,11 @@ number_of_runs = 1;
 % Problem type: 'NPDE', 'LYAP'.
 pars.problem_type = 'LYAP';
 %--------------------------------------------------------------------------
+% Check the consistency of the gradient and the Hessian matrices with the 
+% cost function.
+% 0 for No, 1 for Yes.
+check_grad_hess = 0;
+%--------------------------------------------------------------------------
 % Preconditiong: 0 for No, 1 for Yes.
 pars.precon = 1;
 %--------------------------------------------------------------------------
@@ -56,7 +65,7 @@ pars.lev_coarsest = pars.lev_finest;
 pars.retr_type = 'metric';
 
 % Set the low-rank
-pars.K = 10;
+pars.K = 5;
 %--------------------------------------------------------------------------
 % Parameters for trustregions (Manopt)
 options_tr.maxiter = 300;
@@ -66,13 +75,13 @@ options_tr.tolgradnorm = 1e-12;
 % options_tr.Delta_bar = 0.5;     % MS, 15.01.2021: It is better to comment
 %                               out this line and let manopt take care of
 %                               the Delta_bar automatically.
-options_tr.verbosity = 2;
+options_tr.verbosity = 0;
 %--------------------------------------------------------------------------
-% For logging the command window output:
-fileName_log = [ 'logs/', pars.problem_type, '_Prec', num2str(pars.precon), ...
-    '_Grad_', num2str(pars.lev_finest), '_K', num2str(pars.K), '.log' ];
-
-diary(fileName_log)
+% % For logging the command window output:
+% fileName_log = [ 'logs/', pars.problem_type, '_Prec', num2str(pars.precon), ...
+%     '_Grad_', num2str(pars.lev_finest), '_K', num2str(pars.K), '.log' ];
+% 
+% diary(fileName_log)
 %--------------------------------------------------------------------------
 fprintf('+--------------------------------------------------------------+\n');
 fprintf(['| Problem type: ', pars.problem_type, '                                           |\n'])
@@ -141,13 +150,13 @@ if pars.precon==1
     problem.precon = @(X,H) getXi( X, H, pars );
 end
 
-% % Check gradient and Hessian:
-% checkgradient(problem);
-% pause(0.5)
-% checkhessian(problem);
-% pause(0.1)
-% 
-% return
+if check_grad_hess==1
+    % Check gradient and Hessian:
+    checkgradient(problem);
+    pause(0.5)
+    checkhessian(problem);
+    pause(0.5)
+end
 
 fprintf('+--------------------------------------------------------------+\n');
 fprintf('|                    Set initial point Wh0                     |\n');
@@ -197,7 +206,7 @@ Times = time_vect'
 fprintf('  Number of runs: %d. Average time: %.2f s.\n', number_of_runs, mean(time_vect) );
 fprintf('****************************************************************\n');
 
-diary off
+% diary off
 
 % Plot
 % Plot_PrecRTR( tr_gradnorm, pars );
