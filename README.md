@@ -1,7 +1,7 @@
 # PrecRTR
 
-Created on 2023.06.25.
-Last change on 2023.06.25.
+<!--- Created on 2023.06.25.
+Last change on 2023.06.25. -->
 
 This is a collection of MATLAB files associated with the preprint
 [Implicit low-rank Riemannian schemes for the time integration of stiff partial differential equations](https://arxiv.org/abs/2305.11532).
@@ -20,7 +20,7 @@ If there are any problems or bugs, feel free to [contact me](mailto:msutti@ncts.
 
 ## I) Version History
 
-- Ver 1, 25 Jun 2023: initial release.
+- Ver 1, 12 Sep 2023: initial release.
 
 
 ## II) Contents
