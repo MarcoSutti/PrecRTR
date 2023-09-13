@@ -1,5 +1,6 @@
 %==========================================================================
-% Driver for the Allen-Cahn equation reference solution computed with RK4.
+% Driver for the Allen-Cahn equation reference solution computed with the
+% fourth-order explicit Runge-Kutta method (ERK4).
 
 % Created:     2022.11.29
 % Last change: 2023.02.10
@@ -102,7 +103,7 @@ fprintf('+--------------------------------------------------------------+\n');
 fprintf('|                           Save data                          |\n');
 fprintf('+--------------------------------------------------------------+\n');
 % 2022.12.31: Save the history of t and W.
-fileName_mfile = [ 'ACE_ref_', num2str(Nx), 'x', num2str(Nx), '_T', ...
+fileName_mfile = [ 'reference_solutions/ACE_ref_', num2str(Nx), 'x', num2str(Nx), '_T', ...
     num2str(T), '_dt', num2str(dt), '.mat'];
 
 save( fileName_mfile, 't_hist', 'W_hist')
