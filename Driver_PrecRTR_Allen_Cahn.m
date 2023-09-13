@@ -1,10 +1,13 @@
 %==========================================================================
 % Driver for using Preconditioned Riemannian Trust Region on the manifold
 % of fixed-rank matrices.
-% Script for ACE.
+% Script for the Allen-Cahn equation (ACE).
 % Created:     2022.12.15
-% Last change: 2023.02.03
+% Last change: 2023.09.13
 
+%   Sep 13, 2023:
+%       Added option to switch on/off the checks on consistency of the
+%       gradient and the Hessian.
 %   Feb 3, 2023:
 %       Cleanup.
 %   Jan 30, 2023:
@@ -30,7 +33,12 @@ pars.problem_type = 'ACE';
 
 % Preconditiong: 0 for No, 1 for Yes.
 pars.precon = 1;
-
+%--------------------------------------------------------------------------
+% Check the consistency of the gradient and the Hessian matrices with the 
+% cost function.
+% 0 for No, 1 for Yes.
+check_grad_hess = 0;
+%--------------------------------------------------------------------------
 options_lrie.verbosity = 1;
 options_lrie.plot = false;
 %--------------------------------------------------------------------------
@@ -67,11 +75,9 @@ Lx = 2*pi;
 Ly = 2*pi;
 hx = Lx/Nx;
 hy = Ly/Ny;
-x = linspace(-0.5*Lx+hx, 0.5*Lx, Nx+1); % !!!!!!!! Grazie JH !!!!!!!!
+x = linspace(-0.5*Lx+hx, 0.5*Lx, Nx+1);
 y = linspace(-0.5*Ly+hy, 0.5*Ly, Ny+1);
-% x = linspace( 0, Lx, Nx);
-% y = linspace( 0, Ly, Ny);
-x = x(1:end-1); % !!!!!!!! Grazie JH !!!!!!!!
+x = x(1:end-1);
 y = y(1:end-1);
 [ xx , yy ] = ndgrid(x,y);
 %--------------------------------------------------------------------------
@@ -105,7 +111,7 @@ Precomputed(1).L(end,1) = Precomputed(1).L(1,2);
 
 % % Get the second-order periodic spectral differentiation matrix:
 % column = [ -pi^2/(3*hx^2)-1/6 -.5*(-1).^(1:Nx-1)./sin(hx*(1:Nx-1)/2).^2 ];
-% D2 = (2*pi/Lx)^2 * toeplitz(column);   % 2022.12.30: avevo sbagliato il prefactor!!!
+% D2 = (2*pi/Lx)^2 * toeplitz(column);
 
 % The discretized minus Laplacian (without the prefactor 1/h^2) in sparse format:
 Precomputed(1).Ah = get_Ah( Nx );
@@ -133,9 +139,8 @@ Precomputed(1).Ah = get_Ah( Nx );
 % Nt = ( T - t0 ) / pars.dt;
 %--------------------------------------------------------------------------
 % MS, 2023.01.10:
-% Faccio partire la simulazione da t = 0.5 s, voglio vedere se cambia
-% qualcosa nell'evoluzione temporale.
-load("ACE_ref_256x256_T0.5_dt0.0001.mat")
+% We start the simulation from t = 0.5 s.
+load("reference_solutions/ACE_ref_256x256_T0.5_dt0.0001.mat")
 
 [ U, S, V ] = svd( W_hist(:,:,end) );
 
@@ -162,18 +167,19 @@ problem.egrad = @(X) egrad_ACE_f_from_struct( X, W, pars );
 problem.ehess = @(X,H) ehess_ACE_f_from_struct( X, H, pars );
 
 %--------------------------------------------------------------------------
-% Check gradient and Hessian:
-fprintf('+--------------------------------------------------------------+\n');
-fprintf('|                         Check gradient                       |\n');
-fprintf('+--------------------------------------------------------------+\n');
-checkgradient(problem);
-pause(1)
-fprintf('+--------------------------------------------------------------+\n');
-fprintf('|                          Check Hessian                       |\n');
-fprintf('+--------------------------------------------------------------+\n');
-checkhessian(problem);
-pause(1)
-return
+if check_grad_hess==1
+    % Check gradient and Hessian:
+    fprintf('+--------------------------------------------------------------+\n');
+    fprintf('|                         Check gradient                       |\n');
+    fprintf('+--------------------------------------------------------------+\n');
+    checkgradient(problem);
+    pause(1)
+    fprintf('+--------------------------------------------------------------+\n');
+    fprintf('|                          Check Hessian                       |\n');
+    fprintf('+--------------------------------------------------------------+\n');
+    checkhessian(problem);
+    pause(1)
+end
 %--------------------------------------------------------------------------
 
 fprintf('+--------------------------------------------------------------+\n');
