@@ -20,12 +20,12 @@
 
 close all; clear; clc;
 
-addpath( genpath('../export_fig-master') );
+% addpath( genpath('../export_fig-master') );
 
 options_plot;
 
 % Load the saved data:
-load("ACE_ref_256x256_T25_dt0.0001.mat")
+load("ACE_ref_256x256_T15_dt0.0001.mat")
 
 %--------------------------------------------------------------------------
 gray3 = [ 0.255, 0.255, 0.255 ];

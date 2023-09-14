@@ -41,7 +41,7 @@ W0 = get_ACE_IC_RV2022( xx, yy );
 
 % Time discretization:
 dt = 1e-4;
-T = 0.5;
+T = 15;
 Nt = round( T/dt );
 
 % Save the data every "ns" iterations:

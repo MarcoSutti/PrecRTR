@@ -18,7 +18,7 @@ function [ EH ] = ehess_FKPP_f_from_struct( W, H, pars )
 % Convert H to the ambient space format:
 H_amb.U = [W.U*H.M + H.Up, W.U];
 [ ~, k_h ] = size(H_amb.U);
-H_amb.S = eye( k_h );
+H_amb.S = speye( k_h );
 H_amb.V = [W.V, H.Vp];
 
 % Computes the Euclidean Hessian in factorized format:

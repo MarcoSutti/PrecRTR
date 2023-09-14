@@ -17,7 +17,7 @@ close all; clear; clc;
 options_plot;
 
 % Load the saved data:
-load("ACE_ref_256x256_T25_dt0.0001.mat")
+load("ACE_ref_256x256_T15_dt0.0001.mat")
 
 %--------------------------------------------------------------------------
 % Data
@@ -38,8 +38,6 @@ A = -(1/hx^2) * get_Ah( Nx );
 % End of data
 %--------------------------------------------------------------------------
 
-% tol = 1e-10;
-
 for i=1:Nt
     L2_norm_RHS(i) = norm( get_RHS( W_hist(:,:,i), A, epsilon ), 'fro' ) * hx;
     rank_W_hist(i) = rank( W_hist(:,:,i) );
@@ -54,7 +52,7 @@ grid on
 xlabel('$t$')
 ylabel('$\| \partial w / \partial t \|_{L^{2}(\Omega)}$')
 % xlim( [ 10, 15 ] )
-% ylim( [ 1e-5 10 ] )
+ylim( [ 1e-5 10 ] )
 
 
 %--------------------------------------------------------------------------
@@ -63,11 +61,14 @@ ylabel('$\| \partial w / \partial t \|_{L^{2}(\Omega)}$')
 fprintf('+--------------------------------------------------------------+\n');
 fprintf('|                           Save plot                          |\n');
 fprintf('+--------------------------------------------------------------+\n');
-fileName_plot = 'plots/ACE_RK4_ref_sol_L2_norm_vs_time';
+fileName_plot = '../plots/ACE_RK4_ref_sol_L2_norm_vs_time';
+
+set(gcf, 'Color', 'w');
+export_fig(fileName_plot, '-pdf', '-opengl','-r600');
 
 % Save plot to eps file
 saveas( gcf, fileName_plot, 'epsc' )
-fprintf('Saved graph to file %s.eps.\n', fileName_plot);
+fprintf('Saved graph to file %s.pdf.\n', fileName_plot);
 
 
 %--------------------------------------------------------------------------
@@ -88,9 +89,11 @@ ylabel('$ \mathrm{rank}(W_{\mathrm{ref}}) $')
 fprintf('+--------------------------------------------------------------+\n');
 fprintf('|                           Save plot                          |\n');
 fprintf('+--------------------------------------------------------------+\n');
-fileName_plot = 'plots/ACE_RK4_ref_sol_rank_vs_time';
+fileName_plot = '../plots/ACE_RK4_ref_sol_rank_vs_time';
+
+set(gcf, 'Color', 'w');
+export_fig(fileName_plot, '-pdf', '-opengl','-r600');
 
 % Save plot to eps file
-saveas( gcf, fileName_plot, 'epsc' )
-fprintf('Saved graph to file %s.eps.\n', fileName_plot);
-
+% saveas( gcf, fileName_plot, 'epsc' )
+fprintf('Saved graph to file %s.pdf.\n', fileName_plot);

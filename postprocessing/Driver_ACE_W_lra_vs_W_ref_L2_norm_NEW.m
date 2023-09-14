@@ -18,17 +18,15 @@ close all; clear; clc;
 
 options_plot;
 
-addpath(genpath('export_fig-master'));
-
 %--------------------------------------------------------------------------
-gray3 = [ 0.255, 0.255, 0.255 ];
-super_light_gray = [ 0.99, 0.99, 0.99 ];
+% gray3 = [ 0.255, 0.255, 0.255 ];
+% super_light_gray = [ 0.99, 0.99, 0.99 ];
 
-% Added on 2023.03.06:
-set( 0, 'DefaultAxesXColor', super_light_gray );
-set( 0, 'DefaultAxesYColor', super_light_gray );
-set( 0, 'DefaultAxesZColor', super_light_gray );
-set( 0, 'DefaultTextColor', super_light_gray );
+% % Added on 2023.03.06:
+% set( 0, 'DefaultAxesXColor', super_light_gray );
+% set( 0, 'DefaultAxesYColor', super_light_gray );
+% set( 0, 'DefaultAxesZColor', super_light_gray );
+% set( 0, 'DefaultTextColor', super_light_gray );
 %--------------------------------------------------------------------------
 % Data
 %--------------------------------------------------------------------------
@@ -174,11 +172,11 @@ grid on
 %--------------------------------------------------------------------------
 % MS, 2023.03.06:
 % Change the color of the grid:
-set( gca,'GridColor', super_light_gray )
+% set( gca,'GridColor', super_light_gray )
 
 % Added on 2023.03.06:
 % Questo è il background "esterno" alla figura
-set( gca,'Color', gray3 )
+% set( gca,'Color', gray3 )
 %--------------------------------------------------------------------------
 xlabel('$t$')
 ylabel('$ \| w - w_{\mathrm{ref}} \|_{L^{2}(\Omega)} $')
@@ -198,16 +196,17 @@ ylim( [ 9e-10 9e1 ] )
 fprintf('+--------------------------------------------------------------+\n');
 fprintf('|                         Save figure 1                        |\n');
 fprintf('+--------------------------------------------------------------+\n');
-fileName_plot = [ 'plots/ACE_L2_norm_W_lra_vs_W_ref_256x256_rank_adaptive_t0_', num2str(t0) ];
+fileName_plot = [ '../plots/ACE_L2_norm_W_lra_vs_W_ref_256x256_rank_adaptive_t0_', num2str(t0) ];
 
 % % Save plot to eps file
 % saveas( gcf, fileName_plot, 'epsc' )
 % fprintf('Saved graph to file %s.eps.\n', fileName_plot);
 % %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
-% Save plot to png file
-export_fig(fileName_plot, '-dpng', '-transparent', '-r300'); % -r300 is the PPI value, default resolution is low
-fprintf('Saved graph to file %s.png.\n', fileName_plot);
+% Save plot to pdf file
+export_fig(fileName_plot, '-pdf' ); %, '-opengl','-r600');
+% '-dpng', '-transparent', '-r300'); % -r300 is the PPI value, default resolution is low
+fprintf('Saved graph to file %s.pdf.\n', fileName_plot);
 %--------------------------------------------------------------------------
 %%
 % Plot the "stability barrier"
@@ -225,11 +224,11 @@ grid on
 %--------------------------------------------------------------------------
 % MS, 2023.03.06:
 % Change the color of the grid:
-set( gca,'GridColor', super_light_gray )
+% set( gca,'GridColor', super_light_gray )
 
 % Added on 2023.03.06:
 % Questo è il background "esterno" alla figura
-set( gca,'Color', gray3 )
+% set( gca,'Color', gray3 )
 %--------------------------------------------------------------------------
 legend( 'error', '$ \mathcal{O}(h) $', 'FontSize', 14, 'Location', 'SE' )
 xlabel('$ h $')
@@ -242,14 +241,14 @@ ylim( [ 1e-6 5e-4 ] )
 fprintf('+--------------------------------------------------------------+\n');
 fprintf('|                         Save figure 2                        |\n');
 fprintf('+--------------------------------------------------------------+\n');
-fileName_plot = [ 'plots/ACE_stability_barrier_t0_', num2str(t0) ];
+fileName_plot = [ '../plots/ACE_stability_barrier_t0_', num2str(t0) ];
 
 % % Save plot to eps file
 % saveas( gcf, fileName_plot, 'epsc' )
 % fprintf('Saved graph to file %s.eps.\n', fileName_plot);
 % %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
-% Save plot to png file
-export_fig(fileName_plot, '-dpng', '-transparent', '-r300'); % -r300 is the PPI value, default resolution is low
-fprintf('Saved graph to file %s.png.\n', fileName_plot);
+% Save plot to pdf file
+export_fig(fileName_plot, '-pdf' );
+fprintf('Saved graph to file %s.pdf.\n', fileName_plot);
 %--------------------------------------------------------------------------
