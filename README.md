@@ -8,15 +8,19 @@ This is a collection of MATLAB files associated with the preprint
 
 We propose two implicit numerical schemes for the low-rank time integration of stiff nonlinear partial differential equations. Our approach uses the preconditioned Riemannian trust-region method of Absil, Baker, and Gallivan, 2007. We demonstrate the efficiency of our method for solving the Allen-Cahn and the Fisher-KPP equation on the manifold of fixed-rank matrices. Furthermore, our approach allows us to avoid the restriction on the time step typical of methods that use the fixed-point iteration to solve the inner nonlinear equations. Finally, we demonstrate the efficiency of the preconditioner on the same variational problems presented in Sutti and Vandereycken, 2021.
 
-The Riemannian trust-regions (RTR) of~\protect{\cite{ABG:2007}} is executed using solvers from the Manopt package~\cite{Boumal:2014} (version 7.0) with the Riemannian embedded submanifold geometry from~\protect{\cite{Vandereycken:2013}}.
+The Riemannian trust-regions (RTR) of Absil, Baker, and Gallivan, 2007 is executed using solvers from the [Manopt package](https://www.manopt.org/) (version 7.0) with the Riemannian embedded submanifold geometry from Vandereycken, 2013.
 
-The preprint's calculations outlined in section~\ref{sec:preconditioning} are implemented in the script `getPrecon`.
+The preprint's calculations outlined in appendix C are implemented in the script `getPrecon`.
 
 In the Manopt code, we inject our preconditioner in the `trustregions`, line 14-15, we have the trust-regions `tCG` solver, line 76 in the `tCG` solver, "P is the preconditioner" `v = precon(x,u)`.
 
 
 If there are any problems or bugs, feel free to [contact me](mailto:msutti@ncts.tw).
 
+If you use PrecRTR for your research, please kindly cite the following preprint:
+
+> M. Sutti and B. Vandereycken, 
+"[Implicit low-rank Riemannian schemes for the time integration of stiff partial differential equations](https://arxiv.org/abs/2305.11532)." Tech. report, May 2023, https://arxiv.org/abs/2305.11532.
 
 ## I) Version History
 
@@ -45,4 +49,11 @@ The figures will then be saved into the `plots` folder.
 
 ## IV) License
 
-The code written in this repository is GPL licensed.
+The code written in this repository is GPL licensed.'
+
+## V) Dependencies
+
+* [Manopt](https://www.manopt.org/)
+
+* [export_fig](https://github.com/altmany/export_fig)
+
