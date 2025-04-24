@@ -3,8 +3,8 @@
 <!--- Created on 2023.06.25.
 Last change on 2023.09.14. -->
 
-This is a collection of MATLAB files associated with the preprint
-[Implicit low-rank Riemannian schemes for the time integration of stiff partial differential equations](https://arxiv.org/abs/2305.11532).
+This is a collection of MATLAB files associated with the paper
+[Implicit low-rank Riemannian schemes for the time integration of stiff partial differential equations](https://doi.org/10.1007/s10915-024-02629-8).
 
 We propose two implicit numerical schemes for the low-rank time integration of stiff nonlinear partial differential equations. Our approach uses the preconditioned Riemannian trust-region (RTR) method of [Absil, Baker, and Gallivan, 2007](https://link.springer.com/article/10.1007/s10208-005-0179-9). We demonstrate the efficiency of our method for solving the Allen-Cahn and the Fisher-KPP equation on the manifold of fixed-rank matrices. Furthermore, our approach allows us to avoid the restriction on the time step typical of methods that use the fixed-point iteration to solve the inner nonlinear equations. Finally, we demonstrate the efficiency of the preconditioner on the same variational problems presented in [Sutti and Vandereycken, 2021](https://epubs.siam.org/doi/10.1137/20M1337430).
 
@@ -17,10 +17,9 @@ In the Manopt code, we inject our preconditioner in the `trustregions`, line 14-
 
 If there are any problems or bugs, feel free to [contact me](mailto:msutti@ncts.tw).
 
-If you use PrecRTR for your research, please kindly cite the following preprint:
+If you use PrecRTR for your research, please kindly cite the following paper:
 
-> M. Sutti and B. Vandereycken, 
-"[Implicit low-rank Riemannian schemes for the time integration of stiff partial differential equations](https://arxiv.org/abs/2305.11532)." Tech. report, May 2023, https://arxiv.org/abs/2305.11532.
+> Sutti, M., Vandereycken, B., [Implicit low-rank Riemannian schemes for the time integration of stiff partial differential equations](https://doi.org/10.1007/s10915-024-02629-8). *J Sci Comput* **101**, 3 (2024). https://doi.org/10.1007/s10915-024-02629-8.
 
 ## I) Version History
 
